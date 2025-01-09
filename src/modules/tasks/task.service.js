@@ -57,7 +57,7 @@ class TaskService {
   // getAll
 
   async getAll() {
-    const data = await this.#taskRepo.find();
+    const data = await this.#taskRepo.find().populate().exec()
 
     if (!data) {
       throw new CustomError(404, "task not found");

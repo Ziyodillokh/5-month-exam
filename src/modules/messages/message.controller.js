@@ -34,7 +34,7 @@ class MessageController {
       next(error);
     }
   }
-
+  
   // update
   async update(req, res, next) {
     try {

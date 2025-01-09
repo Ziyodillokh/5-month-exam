@@ -15,7 +15,7 @@ socket.on("onlineUsers", ({ data }) => {
     option.textContent = `User ${userIndex}`;
     select.appendChild(option);
   });
-});
+});``
 
 socket.on("message", ({ data }) => {
   const p = document.createElement("p");

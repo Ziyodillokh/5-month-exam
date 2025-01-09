@@ -28,9 +28,7 @@ class NotificationController {
         userId = decodedToken.id;
       }
 
-      const resData = await this.#notificationService.getAllNotifications(
-        userId
-      );
+      const resData = await this.#notificationService.getAll(userId);
 
       res.status(resData.statusCode).json(resData);
     } catch (error) {
@@ -72,3 +70,4 @@ class NotificationController {
 }
 const notificationController = new NotificationController(notificationService);
 module.exports = { notificationController };
+

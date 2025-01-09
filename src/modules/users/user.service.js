@@ -15,7 +15,6 @@ class UserService {
     const data = await this.#userRepo.create({
       fullname: dto.fullname,
       email: dto.email,
-      phone: dto.phone,
       password: dto.password,
       role: dto.role,
     });
@@ -26,10 +25,9 @@ class UserService {
 
   // getById
 
-  // UserService
   async getById(id) {
     if (!mongoose.Types.ObjectId.isValid(id)) {
-      throw new CustomError(400, "Invalid ID format");
+      throw new CustomError(400, "Invalid id format");
     }
 
     const user = await UserModel.findOne({ _id: id });
@@ -55,19 +53,21 @@ class UserService {
     return resData;
   }
 
-  // getByPhone
-  async getByPhone(phone) {
-    const data = await this.#userRepo.findOne({ phone });
+  // getByEmail
+
+  async getByEmail(email) {
+    const data = await this.#userRepo.findOne({ email });
 
     const resData = new ResData(200, "User fetched successfully", data);
 
     if (!data) {
       resData.statusCode = 404;
-      resData.message = "User not found by phone";
+      resData.message = "User not found by email";
     }
 
     return resData;
   }
+
   //update
 
   async update(id, dto) {
@@ -76,7 +76,6 @@ class UserService {
       {
         fullname: dto.fullname,
         password: dto.password,
-        phone: dto.phone,
         email: dto.email,
         role: dto.role,
       },
@@ -103,7 +102,7 @@ class UserService {
   }
 
   // update
-  
+
   async updateUserById(userId, updateData) {
     const updatedUser = await UserModel.findByIdAndUpdate(userId, updateData, {
       new: true,

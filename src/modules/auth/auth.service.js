@@ -10,16 +10,16 @@ class AuthService {
   }
 
   async login(dto) {
-    const { data, statusCode } = await this.#userService.getByPhone(dto.phone);
+    const { data, statusCode } = await this.#userService.getByEmail(dto.email);
 
     if (statusCode === 404) {
-      throw new CustomError(400, "Phone or password is incorrect");
+      throw new CustomError(400, "email or password is incorrect");
     }
 
     const isValid = await bcryptIntance.compare(dto.password, data.password);
 
     if (!isValid) {
-      throw new CustomError(400, "Phone or password is incorrect");
+      throw new CustomError(400, "email or password is incorrect");
     }
 
     const tokenData = { id: data._id };
@@ -50,9 +50,17 @@ class AuthService {
 
     return resData;
   }
-  
-  async changePassword(userId, oldPassword, newPassword) {
+
+  async changePassword(userId, oldPassword, newPassword, confirmNewPassword) {
     const { data, statusCode } = await this.#userService.getById(userId);
+
+    if (!confirmNewPassword) {
+      throw new CustomError(400, "confirmNewPassword is required");
+    }
+
+    if (newPassword !== confirmNewPassword) {
+      throw new CustomError(400, "Password incorrect");
+    }
 
     if (statusCode === 404 || !data) {
       throw new CustomError(404, "User not found");

@@ -48,13 +48,15 @@ class AuthController {
   async changePassword(req, res, next) {
     try {
       const userId = req.currentUser.id;
-      const { oldPassword, newPassword } = req.body; 
+      const { oldPassword, newPassword, confirmNewPassword } = req.body;
 
       const result = await this.#authService.changePassword(
         userId,
         oldPassword,
-        newPassword
+        newPassword,
+        confirmNewPassword
       );
+
       return res.status(result.statusCode).json(result);
     } catch (error) {
       next(error);

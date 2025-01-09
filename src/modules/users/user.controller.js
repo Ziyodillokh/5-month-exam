@@ -32,7 +32,7 @@ class UserController {
       }
       validator(userCreateDto, dto);
 
-      const { statusCode } = await this.#userService.getByPhone(dto.phone);
+      const { statusCode } = await this.#userService.getByEmail(dto.email);
 
       if (statusCode === 200) {
         throw new CustomError(400, "User already exists");
@@ -83,7 +83,7 @@ class UserController {
       next(error);
     }
   }
-  
+
   // delete
   async delete(req, res, next) {
     try {

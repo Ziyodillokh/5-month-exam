@@ -103,3 +103,4 @@ class TaskController {
 const taskController = new TaskController(taskService);
 
 module.exports = { taskController };
+

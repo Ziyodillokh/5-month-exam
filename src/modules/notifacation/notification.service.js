@@ -10,7 +10,7 @@ class NotificationService {
 
   // getAll
 
-  async getAllNotifications(userId) {
+  async getAll(userId) {
     const filter = {};
     if (userId) {
       filter.$or = [{ userId }, { isGlobal: true }];
@@ -32,7 +32,7 @@ class NotificationService {
   }
 
   // create
-  
+
   async create(dto) {
     const { title, message, isGlobal, userId } = dto;
 

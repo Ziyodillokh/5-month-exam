@@ -14,7 +14,7 @@ class MessageService {
       from,
       message,
       to,
-      isRead,
+      isRead: false,
     };
 
     const data = await this.#messageRepo.create(messageData);
@@ -45,7 +45,7 @@ class MessageService {
         message: dto.message,
         from: dto.from,
         to: dto.to,
-        isRead: dto.isRead,
+        isRead: true,
       },
       { new: true }
     );

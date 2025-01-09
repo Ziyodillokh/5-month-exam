@@ -24,6 +24,11 @@ const taskSchema = new mongoose.Schema(
       type: String,
       required: false,
     },
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "users",
+      required: false,
+    },
     startDate: {
       type: Date,
       required: true,
